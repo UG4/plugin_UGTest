@@ -35,19 +35,14 @@ include($ENV{UG4_ROOT}/ugcore/cmake/ug_plugin_includes.cmake)
 include(CTest)
 
 # Name of your plugin and sources.
-set(pluginName	ModuleTests)
-set(SOURCES     src/main.cpp)
+set(pluginName	PluginTests)
+#set(SOURCES     src/main.cpp)
 
 
 
 project(UG_PLUGIN_${pluginName})
 
 #include ctest into this not enough knowlege about it yet
-
-
-
-#add cxx flags for coverage and performance analysis
-#add_cxx_flag("-fprofile-arcs -ftest-coverage -fPIC")
 
 #Get all loaded plugins and their directories
 #then iterate over each one of them and check wether they contain tests, if so, add them
@@ -60,7 +55,7 @@ foreach(_name ${tmp_names})
     list(GET tmp_dirs ${i} j)   
     if(IS_DIRECTORY ${j}/tests)
         file(GLOB files ${j}/tests/*.cpp)
-        if(NOT ${files} STREQUAL "")
+        if(NOT files STREQUAL "")
             message(${_name} " contains tests")
             #sth like this
             list(APPEND allfiles ${files})
@@ -78,6 +73,7 @@ endforeach()
 #due to boost.test ug_test takes several arguments, see README.md
 add_executable(ug_test 
         src/main.cpp
+        src/common_fixtures.cpp
         ${allfiles}
     )
 target_link_libraries(ug_test ug4)
