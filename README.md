@@ -14,11 +14,12 @@ Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once d
 ### BOOST_AUTO_TEST_SUITE
 Defines a new testsuite. You should define one per class with an indicator which package it belongs to.
 
-### BOOST_AUTO_TEST_CASE
-Defines a testcase. Required arguments: testcase name; usefull optional args: disabled(), label(), desciption().
+### [BOOST_AUTO_TEST_CASE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-nullary-test-case.html)
+Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during execution.
 
 
-### BOOST_AUTO_TEST_CASE_TEMPLATE
+### [BOOST_AUTO_TEST_CASE_TEMPLATE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-test-case-template.html)
+The same as above, except for template functions. To define such a tes case, you have to pass
 
 ## Checks
 There are three levels of checks: WARN, CHECK and REQUIRE.
@@ -49,7 +50,7 @@ Besides the output to stdout, Boost.Test is able to produce xml output, which is
 
 ## Example
 ```c++
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 
 namespace utf = boost::unit_test;
 
@@ -65,3 +66,7 @@ BOOST_AUTO_TEST_SUITE(packagetests)
 
 BOOST_AUTO_TEST_SUITE_END()
 ```
+
+## Running Tests
+to run the tests you wrote, run cmake for ug with the desired plugins and plugin_tests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
+This executable takes the following arguments: ...

@@ -1,2 +1,2 @@
-#define BOOST_TEST_MODULE UG_UNIT_TESTS
+#define BOOST_TEST_MODULE UG_plugin_tests
 #include <boost/test/included/unit_test.hpp>

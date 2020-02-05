@@ -44,29 +44,27 @@ project(UG_PLUGIN_${pluginName})
 
 #include ctest into this not enough knowlege about it yet
 
-add_executable(ug_test
-        src/main.cpp
-    )
+
 
 #add cxx flags for coverage and performance analysis
-add_cxx_flag("-fprofile-arcs -ftest-coverage -fPIC")
-set(BOOST_TEST_MODULE UG_module_tests)
+#add_cxx_flag("-fprofile-arcs -ftest-coverage -fPIC")
 
 #Get all loaded plugins and their directories
 #then iterate over each one of them and check wether they contain tests, if so, add them
+#THIS CURRENTLY IGNORES WETHER THE PLUGIN IS BUILD OR NOT!!
 get_property(tmp_names GLOBAL PROPERTY ugPluginNames)
 get_property(tmp_dirs GLOBAL PROPERTY ugPluginDirs)
+set(allfiles "")
 set(i 0)
 foreach(_name ${tmp_names})
     list(GET tmp_dirs ${i} j)   
     if(IS_DIRECTORY ${j}/tests)
-        file(GLOB files RELATIVE ${j} ${j}/tests/*.cpp)
+        file(GLOB files ${j}/tests/*.cpp)
         if(NOT ${files} STREQUAL "")
-            message(${files})
             message(${_name} " contains tests")
             #sth like this
-            add_library(${_name}_tests ${files})
-            target_link_libraries(ug_test ${_name}_tests)
+            list(APPEND allfiles ${files})
+            message(${allfiles})
         else()
             message(${_name} " DOES NOT contain tests!!!")
         endif()
@@ -76,3 +74,10 @@ foreach(_name ${tmp_names})
     MATH(EXPR i "${i}+1")
 endforeach()
 
+#create one executable containing all files
+#due to boost.test ug_test takes several arguments, see README.md
+add_executable(ug_test 
+        src/main.cpp
+        ${allfiles}
+    )
+target_link_libraries(ug_test ug4)
