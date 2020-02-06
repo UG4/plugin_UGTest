@@ -35,11 +35,9 @@ struct UGbase
 {
     UGbase()
     {
-        std::cout << "global setup\n";
-        //UGInit doesn't take zero previous versions didn't pass args either
+        std::cout << "now running ug_test\n";
         ug::UGInit(&framework::master_test_suite().argc, &framework::master_test_suite().argv);
-        //Is this necessary?
-        ug::GetLogAssistant().enable_terminal_output(false);
+          
         /*
         * in parallel we log for every process, as checks eg. in scripts may fail only
         * on one specific processor which could not be detected then.
@@ -62,8 +60,9 @@ struct UGbase
          * causes malformed logs.
          */
         std::ofstream* ofs = dynamic_cast<std::ofstream*>(runtime_config::log_sink());
-        // log_sink file given, so reopen it with proper suffix
-        if(ofs) {
+        //unit_test_log.set_stream( * ofs);
+        if (ofs)
+        {
             if(ofs->is_open()){
                 ofs->close();
             }

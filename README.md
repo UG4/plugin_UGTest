@@ -139,3 +139,11 @@ You can rename the example_tests folder of this plugin to tests to see how this 
 ## Running Tests
 to run the tests you wrote, run cmake for ug with the desired plugins and PluginTests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
 This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html).
+
+
+## This plugin
+This plugin provides two important parts needed for testing:
+1. the cmake file collecting all the tests and merging them into one executable
+2. the unit tests for ugcore
+This means that you can build your own executable for only your test without needing this plugin.
+To do so, define BOOST_TEST_MODULE and add all your tests into one executable in your cmake file.

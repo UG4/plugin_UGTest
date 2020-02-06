@@ -53,12 +53,10 @@ set(allfiles "")
 set(i 0)#used to get the correct dir for each plugin
 foreach(_name ${tmp_names})#iterate over every plugin(name)
     if(${${_name}} STREQUAL "ON")#check wether the plugin is activated
-        list(GET tmp_dirs ${i} j)  
-        message(${j}) 
+        list(GET tmp_dirs ${i} j)
         if(IS_DIRECTORY ${j}/tests)#check wether it has tests
             file(GLOB files ${j}/tests/*.cpp)
             if(NOT files STREQUAL "")#find all tests and double check
-                message(${_name} " contains tests")
                 #add all tests to the list of files to build with
                 list(APPEND allfiles ${files})
             else()
