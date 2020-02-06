@@ -18,11 +18,22 @@ Defines a new testsuite. You should define one per class. Name them `<packagenam
 Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during execution.
 Name them `<packagename>_<class>_<description>`
 
+# TODO: Understand this better!!
 ### [BOOST_AUTO_TEST_CASE_TEMPLATE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-test-case-template.html)
 The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types
 Name them `<packagename>_<class>_<description>_template`
 ```c++
+#include <boost/test/unit_test.hpp>
+#include <boost/mpl/list.hpp>
 
+typedef boost::mpl::list<int, long, unsigned char> test_types;
+
+BOOST_AUTO_TEST_SUITE(PluginTests_templates)
+    BOOST_AUTO_TEST_CASE_TEMPLATE(PluginTests_templates_demo_template, T, test_types)
+    {
+        BOOST_CHECK(sizeof(T) == (unsigned)4);
+    }
+BOOST_AUTO_TEST_SUITE_END()
 ```
 
 ## Checks
@@ -77,7 +88,7 @@ struct F {
 
 BOOST_FIXTURE_TEST_CASE( PluginTests_fixture_example, F )
 {
-    //your tests
+    //your test
 }
 ```
 
@@ -113,7 +124,6 @@ BOOST_AUTO_TEST_SUITE(PluginTests_simple)
     {
         BOOST_WARN(false);
         BOOST_CHECK(false);
-        BOOST_MESSAGE("if the next test fails, testing for all packges will abort");
         BOOST_REQUIRE(false);
     }
     BOOST_FIXTURE_TEST_CASE(PluginTests_simple_fixture, F)
