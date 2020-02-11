@@ -31,11 +31,12 @@
 cmake_minimum_required(VERSION 2.6)
 
 # include the definitions and dependencies for ug-plugins.
-include($ENV{UG4_ROOT}/ugcore/cmake/ug_plugin_includes.cmake)
+include(../../ugcore/cmake/ug_plugin_includes.cmake)
+#currently not in use
 include(CTest)
 
 # Name of your plugin and sources.
-set(pluginName	PluginTests)
+set(pluginName	UGTest)
 #set(SOURCES     src/main.cpp)
 
 

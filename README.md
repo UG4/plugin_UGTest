@@ -1,4 +1,6 @@
 # BOOST.Test 1.58 for UG4
+Migrated from the ug4 app unit_test by Martin Scherer.
+
 Boost.Test supplies several utilities for testing, especially unit testing.
 See the [Boost.Test 1.58](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/index.html) documentation.
 
@@ -18,7 +20,6 @@ Defines a new testsuite. You should define one per class. Name them `<packagenam
 Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during execution.
 Name them `<packagename>_<class>_<description>`
 
-# TODO: Understand this better!!
 ### [BOOST_AUTO_TEST_CASE_TEMPLATE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-test-case-template.html)
 The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types
 Name them `<packagename>_<class>_<description>_template`
@@ -47,7 +48,7 @@ There are three levels of checks: WARN, CHECK and REQUIRE.
     </tr>
     <tr>   
         <td>WARN</td>
-        <td>not affected </td>
+        <td>not affected</td>
         <td>continues</td>
     </tr>
     <tr>   
@@ -113,7 +114,7 @@ Besides the output to stdout, Boost.Test is able to produce xml output, which is
 + `BOOST_MESSAGE` writes to stdout, doesn't get logged as long as log_level isn't below "message"
 + `BOOST_TEST_CHECKPOINT` is usefull for marking important steps. Last checkpoint will be logged in case of error.
 
-## Example how a test ca look like for your package
+## Example how a test can look like for your package
 ```c++
 #include <boost/test/unit_test.hpp>
 #include "../../PluginTests/src/common_fixtures.cpp" //Fixtures provided by PluginTests, path doesn't change
@@ -138,7 +139,7 @@ You can rename the example_tests folder of this plugin to tests to see how this 
 
 ## Running Tests
 to run the tests you wrote, run cmake for ug with the desired plugins and PluginTests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
-This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html).
+This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). 
 
 
 ## This plugin

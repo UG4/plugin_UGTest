@@ -35,7 +35,6 @@ struct UGbase
 {
     UGbase()
     {
-        std::cout << "now running ug_test\n";
         ug::UGInit(&framework::master_test_suite().argc, &framework::master_test_suite().argv);
           
         /*
@@ -52,35 +51,9 @@ struct UGbase
         #ifdef UG_PARALLEL
             ss << "_rank_" << pcl::ProcRank();
         #endif
-
-        /**
-         * \todo make it compatible with jenkins
-         * override boosts logsink filename to append the proc rank.
-         * This is necessary because else all processes will write to one file, which
-         * causes malformed logs.
-         */
-        std::ofstream* ofs = dynamic_cast<std::ofstream*>(runtime_config::log_sink());
-        //unit_test_log.set_stream( * ofs);
-        if (ofs)
-        {
-            if(ofs->is_open()){
-                ofs->close();
-            }
-            const char* filename = ss.str().append(".xml").c_str();
-            ofs->open(filename);
-            if(!ofs->good()) {
-                ss.str("");
-                ss << "could not open boost test logfile: " << filename;
-                throw boost::framework::setup_error(ss.str());
-            }
-        }
-        ss << ".log";
-        if(not ug::GetLogAssistant().enable_file_output(true, ss.str().c_str())) {
-            std::string f = ss.str();
-            ss.str("could not enable file output for file: ");
-            ss << f;
-            throw boost::framework::setup_error(ss.str());
-        }
+        ss<<".xml";
+        ofs.open(ss.str(), std::ofstream::out);
+        unit_test_log.set_stream(ofs);
 
         // register exit handler
         #ifdef UG_PARALLEL
@@ -91,7 +64,9 @@ struct UGbase
     //Global teardown
     ~UGbase()  {
         ug::UGFinalize();
+        ofs.close();
     }
+    std::ofstream ofs;
 };
 
 BOOST_GLOBAL_FIXTURE(UGbase);
