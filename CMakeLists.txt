@@ -37,7 +37,6 @@ include(CTest)
 
 # Name of your plugin and sources.
 set(pluginName	UGTest)
-#set(SOURCES     src/main.cpp)
 
 
 

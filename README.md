@@ -139,7 +139,7 @@ You can rename the example_tests folder of this plugin to tests to see how this 
 
 ## Running Tests
 to run the tests you wrote, run cmake for ug with the desired plugins and PluginTests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
-This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). 
+This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). When running in parallel only one process should log by default. To write logs or reports to fies use the log_sink/report_sink options combined with their respectie _level and _format arguments.
 
 
 ## This plugin
