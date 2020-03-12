@@ -7,6 +7,12 @@ See the [Boost.Test 1.58](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/ht
 ## How to write tests
 Assuming you're writing a package for ug4, you should create a folder in your package called "tests". In this subfolder you put all your tests and needed data. That's basically it, cmake will find these and if you did it right will automatically add your tests to the test executable. Things you need to know and should be aware of are listed in this readme.
 You should write tests for all (major) functions regarding correct handling of edge cases, errors and correctness of output.
+Some guidelines(https://opensource.com/article/17/5/30-best-practices-software-development-and-testing):
++ Write tests first.
++ Unit tests test to the unit of behavior, not the unit of implementation.
++ Code is the enemy: It can go wrong, and it needs maintenance. Write less code. Delete code. Don’t write code you don’t need.
++ Smaller, more tightly scoped unit tests give more valuable information when they fail — they tell you specifically what is wrong.
++ Always make your test fail at least once to see wether it actually tests what you want it to.
 
 ## Automated testing
 Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once declared Boost will search for `BOOST_AUTO_TEST_SUITE` and underlying `BOOST_AUTO_TEST_CASE` / `BOST_AUTO_TEST_CASE_TEMPLATE`.
@@ -105,8 +111,8 @@ BOOST_FIXTURE_TEST_SUITE_END()
 Ther is an option to make fixtures globally available, but I highly recommend not to use them, because they are automatically used for every testsuite, not just your own
 
 ## Logging
-You can set the [logging level](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html#) of Boost to `all`, `test_suite`, `message`, `warning`, `error` (standard), `cpp_exception`, `system_error` or `fatal_error`. The parameter for this is `log_level`.
-Besides the output to stdout, Boost.Test is able to produce xml output, which is readable by [Cobertura](https://cobertura.github.io/cobertura/), a plugin for jenkins. To do so, pass `-log_format xml` to your test executable.
+You can set the [logging level](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html#) of Boost to `all`, `test_suite`, `message`, `warning`, `error` (standard)`cpp_exception`, `system_error` or `fatal_error`. The parameter for this is `log_level`.
+Besides the output to stdout, Boost.Test is able to produce xml output, which is readable by [Cobertura](https://cobertura.github.io/cobertura/), a plugin for jenkins. To do so, pass `-log_format=XML` to your test executable.
 
 **Note:** Altough it is possible to set the logging level within you tests, it is highly recommend not to do so, since it overrides the logging level provided at execution time.
 
@@ -141,6 +147,8 @@ You can rename the example_tests folder of this plugin to tests to see how this 
 to run the tests you wrote, run cmake for ug with the desired plugins and PluginTests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
 This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). When running in parallel only one process should log by default. To write logs or reports to fies use the log_sink/report_sink options combined with their respectie _level and _format arguments.
 
+## Jenkins
+The current Jenkins Configuration to run tests is stored in config.xml. This config by default lies in /var/lib/jenkins/jobs/job-name/config.xml. 
 
 ## This plugin
 This plugin provides two important parts needed for testing:
