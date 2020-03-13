@@ -198,6 +198,7 @@ test_case* makeScriptTestCase(const script_call& c) {
 ////////////////////////////////////////////////////////////////////////////////
 void initScriptTestSuites(const vector<script_call>& calls) {
 	if(calls.empty()) {
+		std::cout << "didn't get a call";
 		return;
 	}
 
@@ -215,7 +216,7 @@ void initScriptTestSuites(const vector<script_call>& calls) {
 	bool b_global_timeout = ParamToInt(global_timeout, "--timeout",
 			framework::master_test_suite().argc,
 			framework::master_test_suite().argv);
-
+ 
 	for(size_t i = 0; i < calls.size(); ++i) {
 		script_call c = calls[i];
 
