@@ -7,12 +7,6 @@ See the [Boost.Test 1.58](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/ht
 ## How to write tests
 Assuming you're writing a package for ug4, you should create a folder in your package called "tests". In this subfolder you put all your tests and needed data. That's basically it, cmake will find these and if you did it right will automatically add your tests to the test executable. Things you need to know and should be aware of are listed in this readme.
 You should write tests for all (major) functions regarding correct handling of edge cases, errors and correctness of output.
-Some guidelines(https://opensource.com/article/17/5/30-best-practices-software-development-and-testing):
-+ Write tests first.
-+ Unit tests test to the unit of behavior, not the unit of implementation.
-+ Code is the enemy: It can go wrong, and it needs maintenance. Write less code. Delete code. Don’t write code you don’t need.
-+ Smaller, more tightly scoped unit tests give more valuable information when they fail — they tell you specifically what is wrong.
-+ Always make your test fail at least once to see wether it actually tests what you want it to.
 
 ## Automated testing
 Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once declared Boost will search for `BOOST_AUTO_TEST_SUITE` and underlying `BOOST_AUTO_TEST_CASE` / `BOST_AUTO_TEST_CASE_TEMPLATE`.
@@ -20,17 +14,15 @@ Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once d
 **Do not define `BOOST_TEST_MODULE` in the tests you write for your package!**
 
 ### BOOST_AUTO_TEST_SUITE
-Defines a new testsuite. You should define one per class. Name them `<packagename>_<class>`
+Defines a new testsuite. You should define one per class.
 
 ### [BOOST_AUTO_TEST_CASE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-nullary-test-case.html)
 Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during execution.
 Name them `<packagename>_<class>_<description>`
 
 ### [BOOST_AUTO_TEST_CASE_TEMPLATE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-test-case-template.html)
-The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types
-Name them `<packagename>_<class>_<description>_template`
+The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types.
 ```c++
-#include <boost/test/unit_test.hpp>
 #include <boost/mpl/list.hpp>
 
 typedef boost::mpl::list<int, long, unsigned char> test_types;
@@ -85,8 +77,6 @@ There are several options where to use fixtures:
 
 To "rebuild" your fixture after every test case, you need to call BOOST_FIXTURE_TEST_CASE instead of BOOST_TEST_CASE. BOOST_FIXTURE_TEST_CASE takes the name of your fixture as an additional argument:
 ```c++
-#include <boost/test/unit_test.hpp>
-
 struct F {
     F()  { BOOST_TEST_MESSAGE( "setup fixture" ); }
     ~F() { BOOST_TEST_MESSAGE( "teardown fixture" ); }
@@ -101,9 +91,6 @@ BOOST_FIXTURE_TEST_CASE( PluginTests_fixture_example, F )
 
 This package also provides Testsuite wide fixtures, that you can use like this:
 ```c++
-#include "../../PluginTests/src/common_fixtures.cpp"
-#include <boost/test/unit_test.hpp>
-
 BOOST_FIXTURE_TEST_SUITE(plugin_test_class, FixtureProvidedByCommonFixtures)
     //your tests
 BOOST_FIXTURE_TEST_SUITE_END()
@@ -122,8 +109,6 @@ Besides the output to stdout, Boost.Test is able to produce xml output, which is
 
 ## Example how a test can look like for your package
 ```c++
-#include <boost/test/unit_test.hpp>
-#include "../../PluginTests/src/common_fixtures.cpp" //Fixtures provided by PluginTests, path doesn't change
 
 BOOST_AUTO_TEST_SUITE(PluginTests_simple)
 

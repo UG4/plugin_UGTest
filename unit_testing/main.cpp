@@ -1,3 +1,13 @@
+/**
+ * \author  Tobias Trautmann <Tobias.Trautmann@gcsc.uni-frankfurt.de>
+ * \note    most of the code seen here originates from Martin Scherer as seen in unit_tests.
+ * \brief   The global fixture. In older versions of BOST.Test, this was the function init_unit_test_suite. 
+ * \bug     Currently, this throws LoadPlugins fails (called by UGInit), but still execues all tests
+ * \todo    It is unknown, if pcl works
+ * \todo    dependecies need to be updated
+ * \note    newer versions of Boost allow tagging, descriptions and  other usefull stuff to organise tests.
+ *          The constructor of this struct is equivalent to a main function for the ug_test executable. It calls UGInit and sets up logging.
+ */
 #define BOOST_TEST_MODULE UG_plugin_tests
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/framework.hpp> 
@@ -16,16 +26,7 @@ using namespace boost::unit_test;
     }
 #endif
 
-    /**
- * \author  Tobias Trautmann <Tobias.Trautmann@gcsc.uni-frankfurt.de>
- * \note    most of the code seen here originates from Martin Scherer as seen in unit_tests.
- * \brief   The global fixture. In older versions of BOST.Test, this was the function init_unit_test_suite. 
- * \bug     Currently, this throws LoadPlugins fails (called by UGInit), but still execues all tests
- * \todo    It is unknown, if pcl works
- * \todo    dependecies need to be updated
- * \note    newer versions of Boost allow tagging, descriptions and  other usefull stuff to organise tests.
- *          The constructor of this struct is equivalent to a main function for the ug_test executable. It calls UGInit and sets up logging.
- */
+ 
 
 struct UGbase
 {
@@ -38,13 +39,10 @@ struct UGbase
             atexit(exitHandler);
         #endif
     }
-
     //Global teardown
     ~UGbase()  {
         ug::UGFinalize();
-        //ofs.close();
     }
-    //std::ofstream ofs;
 };
 
 BOOST_GLOBAL_FIXTURE(UGbase);

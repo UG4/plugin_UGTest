@@ -1,7 +1,7 @@
 set(UGTEST_SYSTEM_CONFIG test_config)
 
 add_executable(ugtest_system
-    testSuite.cpp
+    main.cpp
     testScripts.cpp
     script_param_parser.cpp
     fixtures/bind_boost_test.cpp

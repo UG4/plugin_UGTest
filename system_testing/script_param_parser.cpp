@@ -68,14 +68,25 @@ bool ScriptParamsReader::parse_file(const string& filename)
 	fileContent[size] = 0;
 	in.close();
 
+
+//currently fails after this point
+
 //	parse the xml-data
 	doc.parse<0>(fileContent);
 
+	std::cout<<"breakpoint0";
+
 //	iterate through all script elements (start with first script element
-	if(!doc.first_node("scripts"))
+	if(!doc.first_node("scripts")){
+		std::cout << "check xml file: document does not start with 'scripts' element";
 		UG_THROW("check xml file: document does not start with 'scripts' element");
+	}
+
+	std::cout<<"breakpoint1";
 
 	xml_node<>* curNode = doc.first_node("scripts")->first_node("script");
+
+	std::cout<<"breakpoint2";
 
 	while(curNode) {
 		script_call c;
@@ -84,6 +95,7 @@ bool ScriptParamsReader::parse_file(const string& filename)
 		if(xml_attribute<>* path_attr = curNode->first_attribute("path")) {
 			c.path = string(path_attr->value(), path_attr->value_size());
 		} else {
+			std::cout << "no path attribute given for script";
 			UG_THROW("no path attribute given for script")
 		}
 

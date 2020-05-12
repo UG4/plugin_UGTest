@@ -141,8 +141,8 @@ struct ug_global_fixture {
         catch (...)
         {
         }
-    }
-    closedir(dir);
+      }
+      closedir(dir);
 
 #ifdef UG_PARALLEL
     // register exit handler
