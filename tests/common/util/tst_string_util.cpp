@@ -1,5 +1,5 @@
 #include "common/util/string_util.h"
-#include "../unit_testing/UGTest.h"
+#include "UGTest.h"
 
 BOOST_AUTO_TEST_SUITE(Testsuite_string_util)
 

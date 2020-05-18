@@ -111,8 +111,8 @@ Besides the output to stdout, Boost.Test is able to produce xml output, which is
 
 ## Example how a test can look like for your package
 ```c++
-
-BOOST_AUTO_TEST_SUITE(PluginTests_simple)
+#include "UGTest.h"
+BOOST_AUTO_TEST_SUITE(PluginTests)
 
     BOOST_AUTO_TEST_CASE(PluginTests_simple_checks)
     {

@@ -12,7 +12,7 @@ foreach(_name ${tmp_names})#iterate over every plugin(name)
     if(${${_name}} STREQUAL "ON")#check wether the plugin is activated
         list(GET tmp_dirs ${i} j)
         if(IS_DIRECTORY ${j}/tests)#check wether it has tests
-            file(GLOB files ${j}/tests/*.cpp)
+            file(GLOB_RECURSE files ${j}/tests/*.cpp)
             if(NOT files STREQUAL "")#find all tests and double check
                 #add all tests to the list of files to build with
                 list(APPEND allfiles ${files})
@@ -27,9 +27,12 @@ foreach(_name ${tmp_names})#iterate over every plugin(name)
     MATH(EXPR i "${i}+1")
 endforeach()
 
+include_directories(.)
+
 #create one executable containing all files
-#due to boost.test ug_test takes several arguments, see README.md
+#due to boost.test ugtest_unit takes several arguments, see README.md
 add_executable(ugtest_unit   
+        UGTest.h
         ${allfiles}
     )
 target_link_libraries(ugtest_unit ug4)
