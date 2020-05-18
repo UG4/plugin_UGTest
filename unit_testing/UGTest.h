@@ -18,6 +18,8 @@ using namespace ug;
     }
 #endif
 
+
+//Global init for ug run at the beginning and end of each testsuite
 struct UGbase
 {
     UGbase()
