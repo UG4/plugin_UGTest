@@ -36,7 +36,7 @@ struct UGBase{
         struct dirent *files;
         while (files = readdir(dir))
         {
-            //this is as ugly as possible
+            //this is as ugly as possible i dont know if posix is actually the right choice but hey
             string configpath = PathProvider::get_path(PathTypes::APPS_PATH) + "/" + files->d_name + string("/tests/config.xml");
             if(access( configpath.c_str(), F_OK ) != -1 ){
                 reader.parse_file(configpath);

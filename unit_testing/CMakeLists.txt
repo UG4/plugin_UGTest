@@ -29,8 +29,7 @@ endforeach()
 
 #create one executable containing all files
 #due to boost.test ug_test takes several arguments, see README.md
-add_executable(ugtest_unit    
-        main.cpp
+add_executable(ugtest_unit   
         ${allfiles}
     )
 target_link_libraries(ugtest_unit ug4)
