@@ -1,6 +1,8 @@
 #include "common/util/string_util.h"
 #include "UGTest.h"
 
+using namespace ug;
+using namespace std;
 BOOST_AUTO_TEST_SUITE(tst_string_util)
 
     BOOST_AUTO_TEST_CASE(tst_string_util_TokenizeString){
@@ -150,17 +152,18 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
     }
 
     BOOST_AUTO_TEST_CASE(tst_string_util_repeat){
-        BOOST_CHECK_EQUAL(repeat(" ",0), "");
-        BOOST_CHECK_EQUAL(repeat(" ",1), " ");
-        BOOST_CHECK_EQUAL(repeat(" ",-1), "");
+        BOOST_CHECK_EQUAL(repeat({},0), "");
+        BOOST_CHECK_EQUAL(repeat(' ',0), "");
+        BOOST_CHECK_EQUAL(repeat(' ',1), " ");
+        BOOST_CHECK_EQUAL(repeat(' ',-1), "");
     }
 
     BOOST_AUTO_TEST_CASE(tst_string_util_LevenshteinDistance){
-        string[] words={"hat", "Hut", "tun"};
+        std::string words [] = {"hat", "Hut", "tun"};
 
         BOOST_CHECK_EQUAL(LevenshteinDistance("", ""), 0);
 
-        BOOST_CHECK_EQUAL(LevenshteinDistance(words[0], words[1]), 1);
+        BOOST_CHECK_EQUAL(LevenshteinDistance(words[0], words[1]), 2);
         BOOST_CHECK_GT(LevenshteinDistance(words[0], words[2]), LevenshteinDistance(words[1], words[2]));
     }
 
@@ -192,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
         BOOST_REQUIRE_EQUAL(XMLStringEscape("<"), "&lt;");
         BOOST_REQUIRE_EQUAL(XMLStringEscape(">"), "&gt;");
 
-        //some random data sets
+        //some random data sets or actual xml files
     }
 
     BOOST_AUTO_TEST_CASE(tst_string_util_WildcardMatch){
@@ -203,7 +206,9 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
         
     }
 
-    BOOST_AUTO_TEST_CASE(tst_string_util_OstreamShift){
+    boost::mpl::list<std::string, int, long> OstreamShift_test_types;
+
+    BOOST_AUTO_TEST_CASE_TEMPLATE(tst_string_util_OstreamShift, T, OstreamShift_test_types){
         //template
     }
 
@@ -211,7 +216,7 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
         size_t kb=1024, z=0, n=-1, mb=2411724;
 
         BOOST_CHECK_EQUAL(GetBytesSizeString(kb), "1 kb");
-        BOOST_CHECK_EQUAL(GetBytesSizeString(mb), "2,3 MB")
+        BOOST_CHECK_EQUAL(GetBytesSizeString(mb), "2,3 MB");
 
         BOOST_CHECK_EQUAL(GetBytesSizeString(z), "0 b");
 
