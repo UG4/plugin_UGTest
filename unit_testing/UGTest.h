@@ -5,6 +5,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/test_case_template.hpp>
 #include <boost/test/parameterized_test.hpp>
+//#include <bost/test/floating_point_comparison.hpp>
 
 #include <cstdlib>     /* atexit */
 #include "ug.h"
