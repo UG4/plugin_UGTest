@@ -4,7 +4,6 @@
 #define BOOST_TEST_MODULE UG_plugin_tests
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/test_case_template.hpp>
-#include <boost/test/tools/floating_point_comparison.hpp>
 #include <boost/test/parameterized_test.hpp>
 
 #include <cstdlib>     /* atexit */

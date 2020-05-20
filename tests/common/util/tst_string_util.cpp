@@ -206,11 +206,11 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
         
     }
 
-    boost::mpl::list<std::string, int, long> OstreamShift_test_types;
+    /*boost::mpl::list<std::string, int, long> OstreamShift_test_types;
 
     BOOST_AUTO_TEST_CASE_TEMPLATE(tst_string_util_OstreamShift, T, OstreamShift_test_types){
-        //template
-    }
+        BOOST_NO_THROW(OstreamShift(T));
+    }*/
 
     BOOST_AUTO_TEST_CASE(tst_string_util_GetBytesSizeString){
         size_t kb=1024, z=0, n=-1, mb=2411724;

@@ -32,7 +32,6 @@ include_directories(.)
 #create one executable containing all files
 #due to boost.test ugtest_unit takes several arguments, see README.md
 add_executable(ugtest_unit   
-        UGTest.h
         ${allfiles}
     )
 target_link_libraries(ugtest_unit ug4)
