@@ -1,5 +1,3 @@
-# NOT UP TO DATE
-
 # BOOST.Test 1.58 for UG4
 Migrated from the ug4 app unit_test by Martin Scherer.
 
@@ -7,8 +5,7 @@ Boost.Test supplies several utilities for testing, especially unit testing.
 See the [Boost.Test 1.58](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/index.html) documentation.
 
 ## How to write tests
-Assuming you're writing a package for ug4, you should create a folder in your package called "tests". In this subfolder you put all your tests and needed data. That's basically it, cmake will find these and if you did it right will automatically add your tests to the test executable. Things you need to know and should be aware of are listed in this readme.
-You should write tests for all (major) functions regarding correct handling of edge cases, errors and correctness of output.
+Assuming you're writing a package for ug4, you should create a folder in your package called "tests". In this folder you copy your source code tree so that for every cpp ther is an according tst_<orginal_name>.cpp. Those testfile should include UGTest.h. You should write at least one test per function regarding correct handling of edge cases, errors and correctness of output. Name your testsuite after the filename and the testcases in it <filename>_<function_name>[_<additional_info>]. Organizing tests this way makes them easier to find and relocate if needed.
 
 ## Automated testing
 Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once declared Boost will search for `BOOST_AUTO_TEST_SUITE` and underlying `BOOST_AUTO_TEST_CASE` / `BOST_AUTO_TEST_CASE_TEMPLATE`.
@@ -19,23 +16,11 @@ Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. Once d
 Defines a new testsuite. You should define one per class.
 
 ### [BOOST_AUTO_TEST_CASE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-nullary-test-case.html)
-Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during execution.
-Name them `<packagename>_<class>_<description>`
+Defines a testcase. Required arguments: testcase name. In newer versions of Boost, you can pass additional parameters to filter tests during test execution.
 
 ### [BOOST_AUTO_TEST_CASE_TEMPLATE](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/test-organization/auto-test-case-template.html)
 The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types.
-```c++
-#include <boost/mpl/list.hpp>
-
-typedef boost::mpl::list<int, long, unsigned char> test_types;
-
-BOOST_AUTO_TEST_SUITE(PluginTests_templates)
-    BOOST_AUTO_TEST_CASE_TEMPLATE(PluginTests_templates_demo_template, T, test_types)
-    {
-        BOOST_CHECK(sizeof(T) == (unsigned)4);
-    }
-BOOST_AUTO_TEST_SUITE_END()
-```
+**Work in progress**
 
 ## Checks
 There are three levels of checks: WARN, CHECK and REQUIRE.
@@ -85,7 +70,7 @@ struct F {
 
 };
 
-BOOST_FIXTURE_TEST_CASE( PluginTests_fixture_example, F )
+BOOST_FIXTURE_TEST_CASE( UGTest_fixture_example, F )
 {
     //your test
 }
@@ -97,13 +82,15 @@ BOOST_FIXTURE_TEST_SUITE(plugin_test_class, FixtureProvidedByCommonFixtures)
     //your tests
 BOOST_FIXTURE_TEST_SUITE_END()
 ```
-Ther is an option to make fixtures globally available, but I highly recommend not to use them, because they are automatically used for every testsuite, not just your own
+Ther is an option to make fixtures globally available, but please do not to use them, because they are automatically used for every testsuite, not just your own.
 
 ## Logging
 You can set the [logging level](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html#) of Boost to `all`, `test_suite`, `message`, `warning`, `error` (standard)`cpp_exception`, `system_error` or `fatal_error`. The parameter for this is `log_level`.
-Besides the output to stdout, Boost.Test is able to produce xml output, which is readable by [Cobertura](https://cobertura.github.io/cobertura/), a plugin for jenkins. To do so, pass `-log_format=XML` to your test executable.
 
-**Note:** Altough it is possible to set the logging level within you tests, it is highly recommend not to do so, since it overrides the logging level provided at execution time.
+
+Besides the output to stdout, Boost.Test is able to produce xml output, which is readable by [Cobertura](https://cobertura.github.io/cobertura/), a plugin for jenkins. To do so, pass `--log_format=XML --log_level=ALL` to your test executable.
+
+**Note:** Altough it is possible to set the logging level within you tests, dont do so, as it overrides the logging level provided at execution time.
 
 + `BOOST_ERROR(msg)` increases the error counter and shows msg
 + `BOOST_MESSAGE` writes to stdout, doesn't get logged as long as log_level isn't below "message"
@@ -112,15 +99,17 @@ Besides the output to stdout, Boost.Test is able to produce xml output, which is
 ## Example how a test can look like for your package
 ```c++
 #include "UGTest.h"
-BOOST_AUTO_TEST_SUITE(PluginTests)
 
-    BOOST_AUTO_TEST_CASE(PluginTests_simple_checks)
+
+BOOST_AUTO_TEST_SUITE(tst_superfanyfilename)
+
+    BOOST_AUTO_TEST_CASE(coolclass_evenfancierfunction)
     {
         BOOST_WARN(false);
         BOOST_CHECK(false);
         BOOST_REQUIRE(false);
     }
-    BOOST_FIXTURE_TEST_CASE(PluginTests_simple_fixture, F)
+    BOOST_FIXTURE_TEST_CASE(coolclass_lamefunction, F)
     {
         BOOST_WARN_EQUAL(1,2);
         BOOST_WARN_GT(1,2);
@@ -128,18 +117,17 @@ BOOST_AUTO_TEST_SUITE(PluginTests)
 
 BOOST_AUTO_TEST_SUITE_END()     
 ```
-You can rename the example_tests folder of this plugin to tests to see how this plugin works and what it should look like.
 
 ## Running Tests
-to run the tests you wrote, run cmake for ug with the desired plugins and PluginTests enabled. After making, you will find the executable ug_tests in the bin/plugins folder.
+to run the tests you wrote, run cmake for ug with the desired plugins and UGTest enabled. After making, you will find the executable ugtest_unit in the bin folder.
 This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). When running in parallel only one process should log by default. To write logs or reports to fies use the log_sink/report_sink options combined with their respectie _level and _format arguments.
 
 ## Jenkins
-The current Jenkins Configuration to run tests is stored in config.xml. This config by default lies in /var/lib/jenkins/jobs/job-name/config.xml. 
+The current Jenkins Configuration to run tests is stored in config.xml. This config by default lies in /var/lib/jenkins/jobs/job-name/config.xml. **Work in progress**
 
 ## This plugin
 This plugin provides two important parts needed for testing:
 1. the cmake file collecting all the tests and merging them into one executable
 2. the unit tests for ugcore
 This means that you can build your own executable for only your test without needing this plugin.
-To do so, define BOOST_TEST_MODULE and add all your tests into one executable in your cmake file.
+To do so, define BOOST_TEST_MODULE, add all your tests into one executable in your cmake file and disable this plugin.
