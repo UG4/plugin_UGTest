@@ -5,7 +5,6 @@
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/test_case_template.hpp>
 #include <boost/test/parameterized_test.hpp>
-//#include <bost/test/floating_point_comparison.hpp>
 
 #include <cstdlib>     /* atexit */
 #include "ug.h"
@@ -25,9 +24,9 @@ using namespace ug;
 
 
 //Global init for ug run at the beginning and end of each testsuite
-struct UGbase
+struct UGTestInit
 {
-    UGbase()
+    UGTestInit()
     {
         ug::UGInit(&framework::master_test_suite().argc, &framework::master_test_suite().argv);
         // register exit handler
@@ -36,10 +35,11 @@ struct UGbase
         #endif
     }
     //Global teardown
-    ~UGbase()  {
+    ~UGTestInit()  {
         ug::UGFinalize();
     }
 };
 
-BOOST_GLOBAL_FIXTURE(UGbase);
+BOOST_TEST_GLOBAL_FIXTURE(UGTestInit);
+
 #endif

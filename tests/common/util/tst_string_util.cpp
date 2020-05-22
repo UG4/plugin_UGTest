@@ -4,8 +4,6 @@
 using namespace ug;
 using namespace std;
 BOOST_AUTO_TEST_SUITE(tst_string_util)
-
-
     BOOST_AUTO_TEST_CASE(tst_string_util_TokenizeString){
         
     }
