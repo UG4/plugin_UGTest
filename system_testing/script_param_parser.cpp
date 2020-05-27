@@ -47,27 +47,30 @@ ostream& operator<<(ostream& os, const script_call& c) {
 
 bool ScriptParamsReader::parse_file(const string& filename)
 {
-	ifstream in(filename.c_str(), ios::binary);
-	if(!in)
-		UG_THROW(filename << " could not be opened.");
+// 	ifstream in(filename.c_str(), ios::binary);
+// 	if(!in)
+// 		UG_THROW(filename << " could not be opened.");
 
-	rapidxml::xml_document<> doc;
+// 	rapidxml::xml_document<> doc;
 
-//	get the length of the file
-	streampos posStart = in.tellg();
-	in.seekg(0, ios_base::end);
-	streampos posEnd = in.tellg();
-	streamsize size = posEnd - posStart;
+// //	get the length of the file
+// 	streampos posStart = in.tellg();
+// 	in.seekg(0, ios_base::end);
+// 	streampos posEnd = in.tellg();
+// 	streamsize size = posEnd - posStart;
 
-//	go back to the start of the file
-	in.seekg(posStart);
+// //	go back to the start of the file
+// 	in.seekg(posStart);
 
-//	read the whole file en-block and terminate it with 0
-	char* fileContent = doc.allocate_string(0, size + 1);
-	in.read(fileContent, size);
-	fileContent[size] = 0;
-	in.close();
+// //	read the whole file en-block and terminate it with 0
+// 	char* fileContent = doc.allocate_string(0, size + 1);
+// 	in.read(fileContent, size);
+// 	fileContent[size] = 0;
+// 	in.close();
 
+
+	xml_document<> doc;
+	//read filecontent to string
 //currently fails after this point
 
 //	parse the xml-data
