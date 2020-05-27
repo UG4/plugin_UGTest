@@ -36,5 +36,4 @@ struct UGbase
     }
 };
 
-BOOST_GLOBAL_FIXTURE(UGbase);
 #endif
