@@ -53,9 +53,7 @@ struct UGBase{
 BOOST_GLOBAL_FIXTURE(UGBase);
 
 BOOST_AUTO_TEST_SUITE(System)
-
-    BOOST_AUTO_TEST_CASE(all){
-        BOOST_MESSAGE("pls just work for me");
+    BOOST_AUTO_TEST_CASE(all_lua){
+        
     }
-
 BOOST_AUTO_TEST_SUITE_END();
