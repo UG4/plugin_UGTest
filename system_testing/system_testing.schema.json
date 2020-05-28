@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft/2019-09/schema",
+    "title": "script",
+    "description": "a collection of different config for the same script",
+    "required": ["calls", "path", "name"],
+    "properties": {
+        "name":{
+            "type":"string"
+        },
+        "path":{
+            "type":"string"
+        },
+        "calls":{
+            "type": "array",
+            "items":{
+                "uniqueItems": true,
+                "type":"object",
+                "required": ["numProcs", "dimensions", "cpus"],
+                "properties":{
+                    "numProcs": {
+                        "type": "number",
+                        "minimum": 1,
+                        "description": "number of processes, 0==serial"
+                    },
+                    "dimensions": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 3,
+                        "description": "dimensions to run on"
+                    },
+                    "cpus": {
+                        "type": "number",
+                        "minimum": 1,
+                        "description": "cpus to run on"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    },
+                    "params": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
