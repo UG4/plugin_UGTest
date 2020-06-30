@@ -8,7 +8,7 @@ set(i 0)#used to get the correct dir for each plugin
 
 #then iterate over each one of them and check wether they contain tests, if so, add them
 foreach(_name ${tmp_names})#iterate over every plugin(name)
-    if(${${_name}} STREQUAL "ON")#check wether the plugin is activated
+    if(${_name} STREQUAL "ON")#check wether the plugin is activated
         list(GET tmp_dirs ${i} j)
         if(IS_DIRECTORY ${j}/tests)#check wether it has tests
             file(GLOB_RECURSE files ${j}/tests/*.cpp)
