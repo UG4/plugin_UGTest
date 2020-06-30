@@ -1,10 +1,11 @@
 # BOOST.Test 1.58 for UG4
 Migrated from the ug4 app unit_test by Martin Scherer.
-
+Please look at the wiki which is more up to date.
 Boost.Test supplies several utilities for testing, especially unit testing.
 See the [Boost.Test 1.58](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/index.html) documentation.
 
 ## How to write tests
+<<<<<<< HEAD
 Assuming you're writing a package for ug4, you should create a folder in your package called "tests". In this folder you copy your source code tree so that for every cpp ther is an according tst_<orginal_name>.cpp. Those testfile should include UGTest.h. You should write at least one test per function regarding correct handling of edge cases, errors and correctness of output. Name your testsuite after the filename and the testcases in it <filename>_<function_name>[_<additional_info>]. Organizing tests this way makes them easier to find and relocate if needed.
 
 ## Automated testing
@@ -22,6 +23,9 @@ Defines a testcase. Required arguments: testcase name. In newer versions of Boos
 The same as above, except for template functions. To define such a test case, you have to pass test_case_name, formal_type_parameter_name and the collection_of_types.
 **Work in progress**
 
+=======
+Assuming you're writing a plugin for ug4, you should create a folder in your package called "tests". In this subfolder you put all your tests and needed data. That's basically it, cmake will find these and if you did it right will automatically add your tests to the test executable.
+>>>>>>> master
 ## Checks
 There are three levels of checks: WARN, CHECK and REQUIRE.
 
@@ -57,6 +61,7 @@ All functions take a statment as required argument as well as afailure message a
 + `BOOST_<level>_THROW(expression, exception_type)`: checks wether exception_type is throw when executing expression
 + `BOOST_<level>_NO_THROW(expression)` catches any exception thrown by expression but still logs it
 
+<<<<<<< HEAD
 ## [Fixtures](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/fixture.html)
 You probably have similar starting conditions for some testcases you write. These can be grouped in structs that boost can use as a fixture. a fixture is set up before each test case and torn down after that testcase.
 
@@ -118,6 +123,8 @@ BOOST_AUTO_TEST_SUITE(tst_superfanyfilename)
 BOOST_AUTO_TEST_SUITE_END()     
 ```
 
+=======
+>>>>>>> master
 ## Running Tests
 to run the tests you wrote, run cmake for ug with the desired plugins and UGTest enabled. After making, you will find the executable ugtest_unit in the bin folder.
 This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). When running in parallel only one process should log by default. To write logs or reports to fies use the log_sink/report_sink options combined with their respectie _level and _format arguments.
@@ -130,4 +137,8 @@ This plugin provides two important parts needed for testing:
 1. the cmake file collecting all the tests and merging them into one executable
 2. the unit tests for ugcore
 This means that you can build your own executable for only your test without needing this plugin.
+<<<<<<< HEAD
 To do so, define BOOST_TEST_MODULE, add all your tests into one executable in your cmake file and disable this plugin.
+=======
+To do so, define BOOST_TEST_MODULE and add all your tests into one executable in your cmake file.
+>>>>>>> master

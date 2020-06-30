@@ -40,6 +40,9 @@ struct UGTestInit
     }
 };
 
+<<<<<<< HEAD
 BOOST_TEST_GLOBAL_FIXTURE(UGTestInit);
 
+=======
+>>>>>>> master
 #endif
