@@ -39,10 +39,4 @@ struct UGTestInit
         ug::UGFinalize();
     }
 };
-
-<<<<<<< HEAD
-BOOST_TEST_GLOBAL_FIXTURE(UGTestInit);
-
-=======
->>>>>>> master
 #endif
