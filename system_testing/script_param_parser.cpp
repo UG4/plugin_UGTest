@@ -68,7 +68,8 @@ bool ScriptParamsReader::parse_file(const string& filename)
 	fileContent[size] = 0;
 	in.close();
 
-//currently fails after this point
+
+	//read filecontent to string
 
 //	parse the xml-data
 	doc.parse<0>(fileContent);
