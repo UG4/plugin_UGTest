@@ -1,2 +1,1 @@
 ## System tests for ug4
-this is old and not documented at all. the only thing i changed was the boost.test initalization. i think that xml is a little overkill for what we need and that json is enough and way easier. If we still want to use xml i would change the parser a lot. i d not think that xml validation should be hardcoded (xsd instead) and that file access shouldn't be handeld directly via iostream. Also test discovery looks awful and probably will only work on linux in it's current state.
