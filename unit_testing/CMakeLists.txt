@@ -9,9 +9,7 @@ set(i 0)#used to get the correct dir for each plugin
 foreach(_name ${tmp_names})#iterate over every plugin(name)
     if(${_name} STREQUAL "ON")#check wether the plugin is activated
         list(GET tmp_dirs ${i} j)
-        if(EXISTS ${j}/tests/CMakeLists.txt)#check wether it has tests
-            include(${j}/tests/CMakeLists.txt)
-        endif()
+        include(${j}/tests/CMakeLists.txt OPTIONAL)
     endif()
     MATH(EXPR i "${i}+1")
 endforeach()
