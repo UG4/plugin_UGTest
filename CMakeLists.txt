@@ -9,5 +9,7 @@ project(UG_PLUGIN_${pluginName})
 
 include(${UG_ROOT_CMAKE_PATH}/ug_plugin_includes.cmake)
 
+include_directories(.)
+
 add_executable(ugtest_ugcore ${SOURCES})
 target_link_libraries(ugtest_ugcore ug4)
