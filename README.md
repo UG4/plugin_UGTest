@@ -8,6 +8,22 @@ You can build your own executable for only your test without needing this plugin
 
 **Documented here is Boost.Test 1.58, which currently is the included Boost version. It is possible to use Boost 1.72 instead, which provides a lot more features.**
 
+## Enable tests
+To enable tests for your plugin, simply create an executable with your tests as source and link it to ug4. This might look something like this:
+```
+set(TEST_SOURCES
+    tests/common/util/tst_string_util.cpp)
+
+get_property(enabledPlugins GLOBAL PROPERTY ugPluginNames)
+
+#create a test executable if the Test plugin is included
+foreach(plugin ${enabledPlugins})
+    if(${plugin} STREQUAL "UGTest")
+        add_executable(ugtest_ugcore ${TEST_SOURCES})
+        target_link_libraries(ugtest_ugcore ug4)
+    endif()
+endforeach()
+```
 ## Running Tests
 To run the tests you wrote, run cmake for ug with the desired plugins enabled. After making, you will find your executable in the bin folder.
 This executable can take the arguments listed [here](https://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/utf/user-guide/runtime-config/reference.html). When running in parallel only one process should log by default. To write logs or reports to fies use the log_sink/report_sink options combined with their respectie _level and _format arguments.
