@@ -19,8 +19,8 @@ get_property(enabledPlugins GLOBAL PROPERTY ugPluginNames)
 #create a test executable if the Test plugin is included
 foreach(plugin ${enabledPlugins})
     if(${plugin} STREQUAL "UGTest")
-        add_executable(ugtest_ugcore ${TEST_SOURCES})
-        target_link_libraries(ugtest_ugcore ug4)
+        add_executable(ugtest_${pluginName} ${TEST_SOURCES})
+        target_link_libraries(ugtest_${pluginName} ug4)
     endif()
 endforeach()
 ```
