@@ -214,8 +214,8 @@ BOOST_AUTO_TEST_SUITE(tst_string_util)
     BOOST_AUTO_TEST_CASE(tst_string_util_GetBytesSizeString){
         size_t kb=1024, z=0, n=-1, mb=2411724;
 
-        BOOST_CHECK_EQUAL(GetBytesSizeString(kb), "1 kb");
-        BOOST_CHECK_EQUAL(GetBytesSizeString(mb), "2,3 MB");
+        BOOST_CHECK_EQUAL(GetBytesSizeString(kb), "1024 b");
+        BOOST_CHECK_EQUAL(GetBytesSizeString(mb), "2.3 Mb");
 
         BOOST_CHECK_EQUAL(GetBytesSizeString(z), "0 b");
 
