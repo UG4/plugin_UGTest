@@ -1,4 +1,7 @@
-# This plugin
+# UGTest-Plugin
+Author: Tobias Trautmann
+
+
 This plugin mainly consists of three parts:
 1. UGTest.h, a Header file to simplify writing unit tests
 2. the unit tests for ugcore
@@ -14,11 +17,14 @@ To enable tests for your plugin, simply create an executable with your tests as 
 ```
 set(TEST_SOURCES
     tests/common/util/tst_string_util.cpp)
-get_property(enabledPlugins GLOBAL PROPERTY ugPluginNames)
 ```
+# Sample test
+An example is provided in the 'tests' subdir. 
 
 #create a test executable if the Test plugin is included
 ```
+get_property(enabledPlugins GLOBAL PROPERTY ugPluginNames)
+
 foreach(plugin ${enabledPlugins})
     if(${plugin} STREQUAL "UGTest")
         add_executable(ugtest_${pluginName} ${TEST_SOURCES})
