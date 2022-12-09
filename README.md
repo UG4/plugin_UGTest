@@ -10,13 +10,15 @@ You can build your own executable for only your test without needing this plugin
 
 ## Enable tests
 To enable tests for your plugin, simply create an executable with your tests as source and link it to ug4. This might look something like this:
+
 ```
 set(TEST_SOURCES
     tests/common/util/tst_string_util.cpp)
-
 get_property(enabledPlugins GLOBAL PROPERTY ugPluginNames)
+```
 
 #create a test executable if the Test plugin is included
+```
 foreach(plugin ${enabledPlugins})
     if(${plugin} STREQUAL "UGTest")
         add_executable(ugtest_${pluginName} ${TEST_SOURCES})
@@ -84,6 +86,7 @@ Boost.Test needs `BOOST_TEST_MODULE` to be set to generate it's own main. You ca
 ## CMakeLists
 To include UGTest.h, you need to include it in your CMakeLists.txt via `include_directories(../UGTest)`.
 You should create a seperate executable for your tests by adding:
+
 ```
 add_executable(ugtest_${pluginName} ${SOURCES})
 target_link_libraries(ugtest_${pluginName} ug4)
